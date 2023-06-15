@@ -323,8 +323,11 @@ class Game: #
         return game_status
     #
 
-    ## Executa uma rodada.
+    
     def run_the_round(self): #
+        '''
+        Executa uma rodada.
+        '''
         self.last_status = STATUS_HIT
 
         # Verifica se a tentativa é uma letra.
@@ -353,8 +356,11 @@ class Game: #
                         self.word)
     #
 
-	##
+
     def get_final_message(self): #
+        '''
+        Retorna a mensagem de finalização do jogo.
+        '''
         message_to_cliente = self.get_game_status()
 
         if self.player_live > 0:
@@ -368,21 +374,27 @@ class Game: #
 # class Game
 
 
-## Escolhe uma palavra da lista, pseudo-aleatoriamente.
 def get_random_word(word_list):  #
+    '''
+    Escolhe uma palavra da lista, pseudo-aleatoriamente.
+    '''
     return random.choice(word_list)
 #
 
 
-## Verifica se um caractere está presente em determinada string.
 def check_letter_in_word(letter, word):  #
+    '''
+    Verifica se um caractere está presente em determinada string.
+    '''
     return sum([1 for lt in word if letter == lt])
 #
 
 
-## Cria uma string que representa a palavra à ser adivinhada, 
-# as letras ainda não reveladas são substituidas pelo caractere '_'.
 def get_mistery_word(word, letters_revealed):  #
+    '''
+    Cria uma string que representa a palavra à ser adivinhada, 
+    as letras ainda não reveladas são substituidas pelo caractere '_'.
+    '''
     m_word = ""
     for letter in word:
         m_word += (letter + "  ") if (letter in letters_revealed) else ("_  ")
@@ -391,8 +403,10 @@ def get_mistery_word(word, letters_revealed):  #
 #
 
 
-## Revela um caracter aleatório da palavra à ser adivinhada.
 def reveal_a_letter(word, letters_revealed, letters_used): #
+    '''
+    Revela um caracter aleatório da palavra à ser adivinhada.
+    '''
     letters_list = list(word)
     while True:
         letter = random.choice(letters_list)

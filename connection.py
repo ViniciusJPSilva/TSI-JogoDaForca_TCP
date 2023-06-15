@@ -69,6 +69,7 @@ def validate_ip_address(ip_address: str): #
         return False
 # validate_ip_address()
 
+
 def validate_port(port: int): #
     '''
     Valida se o número fornecido é uma porta válida.
