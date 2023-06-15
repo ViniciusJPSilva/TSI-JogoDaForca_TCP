@@ -18,6 +18,10 @@ def read_ip_address():
 # read_ip_address()
 
 def read_port():
+    '''
+    Lê pelo dispositivo de entrada padrão uma porta, 
+    valida e retorna a mesma.
+    '''
     while(True):
         try:
             port =  input("\nForneça a porta (para 14000, basta pressionar ENTER): ")
