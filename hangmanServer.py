@@ -14,7 +14,8 @@ def new_client(connection_socket, address):
         while (not game.over()): #
             # Obtendo o status do jogo.
             message_to_client = game.get_game_status() + "\nTente acertar uma letra" 
-            message_to_client += (" (dica = 0)" if (not game.used_tip) else "") + ": "
+            message_to_client += (" (revelar letra = 0)" if (not game.used_tip) else "")
+            message_to_client += ": "
             connection_socket.send(message_to_client.encode(connection.UTF_8))
 
             # Recebendo a resposta
