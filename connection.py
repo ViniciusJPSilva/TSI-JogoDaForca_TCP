@@ -12,7 +12,9 @@ CONNECTION_ATTEMPTS = 5
 UTF_8 = "utf-8"
 
 END_CONNECTION_MESSAGE = "__END__"  # Flag que indica o término da conexão TCP.
+ERROR_MESSAGE = "__ERROR__"
 CONNECTION_REFUSED = "__REFUSED__"
+
 
 
 def create_server_connection(client=STD_CLIENT_IP, port=STD_PORT): 
@@ -47,7 +49,7 @@ def create_client_connection(server, port=STD_PORT):
 
             return client_socket
         except ConnectionRefusedError:
-            print("Tentando se conectar ao servidor... " +
+            print("\nTentando se conectar ao servidor... " +
                   f"Tentativa {attempt} de {CONNECTION_ATTEMPTS}")
             time.sleep(5)
     

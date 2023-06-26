@@ -1,12 +1,13 @@
 import os
 import connection
+import socket
 
 def read_ip_address():
     '''
     Lê pelo dispositivo de entrada padrão um IP no formato de string, 
     valida e retorna o mesmo.
     '''
-    message = "\nBem vindo ao jogo da forca!\nForneça o IP do servidor " 
+    message = "\nForneça o IP ou Hostname do servidor " 
     message += "(para LocalHost, basta pressionar ENTER): "
 
     while True:
@@ -53,10 +54,23 @@ def start_game():
     Solicita o endereço do servidor, tenta realizar a conexão 
     e permite que o usuário jogue a partida.
     '''
+    clear_terminal()
+    print("\nBem vindo ao jogo da forca!")
+    clientSocket = None
     try:
-        clientSocket = connection.create_client_connection(
-            read_ip_address(),
-            read_port())
+        while True:
+            try:
+                clientSocket = connection.create_client_connection(
+                    read_ip_address(),
+                    read_port())
+                break
+            except socket.gaierror:
+                clear_terminal()
+                print("\nIP ou Hostname inválido! Tente novamente.")
+            except Exception:
+                clear_terminal()
+                print("\n\nOcorreu um erro durante a conexão com o servidor!" +
+                      " Verifique os dados e tente novamente.")
     
         if clientSocket != connection.CONNECTION_REFUSED :
             while True:
@@ -65,19 +79,27 @@ def start_game():
                         connection.STD_MAX_PACKAGE_SIZE).decode(connection.UTF_8)
                 if(messageFrom == connection.END_CONNECTION_MESSAGE): 
                     break
+                if(messageFrom == connection.ERROR_MESSAGE): 
+                    raise BrokenPipeError
 
                 print(messageFrom, end = "")
                 
                 messageTo = input() + " "
                 clientSocket.send(messageTo.encode(connection.UTF_8))
 
-            clientSocket.close()
         else:
             print("Conexão recusada! Verifique se o servidor está ativado.")
     except BrokenPipeError:
+        clear_terminal()
         print("Houve um erro com a conexão com o servidor! A aplicação será encerrada.")
     except KeyboardInterrupt:
+        clear_terminal()
         print("A conexão foi interrompida!") 
+    except Exception:
+        clear_terminal()
+    finally:
+        print("Encerrando a conexão...")
+        clientSocket.close
 # start_game()
 
 
