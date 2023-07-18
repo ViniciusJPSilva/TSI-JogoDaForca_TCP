@@ -1,4 +1,4 @@
-# TSI-Jogo_Da_Forca
+# TSI-Jogo Da Forca
  
 O objetivo deste trabalho é desenvolver um jogo da forca clássico, em terminal, utilizando soquetes e conexões TCP.
 
